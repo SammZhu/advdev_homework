@@ -1,0 +1,174 @@
+apiVersion: v1
+kind: Template
+metadata:
+  creationTimestamp: null
+  name: sz-rocket
+objects:
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    generation: 1
+    labels:
+      app: rocketchat
+    name: rocketchat
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: rocketchat
+      deploymentconfig: rocketchat
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: rocketchat
+          deploymentconfig: rocketchat
+      spec:
+        containers:
+        - env:
+          - name: MONGO_URL
+            value: mongodb://mongodb_user:mongodb_password@mongodb:27017/mongodb?replicaSet=rs0
+          image: docker.io/rocketchat/rocket.chat@sha256:04ff52eb15fbbe542d29e787b72840f7b995f4384d2603cc0c5c9f62d18ffa42
+          imagePullPolicy: IfNotPresent
+          name: rocketchat
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /app/uploads
+            name: rocketchat-volume-1
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir: {}
+          name: rocketchat-volume-1
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - rocketchat
+        from:
+          kind: ImageStreamTag
+          name: rocketchat:0.63.3
+          namespace: 7667-rocket
+      type: ImageChange
+  status:
+    availableReplicas: 0
+    latestVersion: 0
+    observedGeneration: 0
+    replicas: 0
+    unavailableReplicas: 0
+    updatedReplicas: 0
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      name: mongodb
+    name: mongodb
+  spec:
+    ports:
+    - name: mongodb
+      port: 27017
+      protocol: TCP
+      targetPort: 27017
+    selector:
+      name: mongodb
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+    creationTimestamp: null
+    labels:
+      name: mongodb
+    name: mongodb-internal
+  spec:
+    clusterIP: None
+    ports:
+    - name: mongodb
+      port: 27017
+      protocol: TCP
+      targetPort: 27017
+    selector:
+      name: mongodb
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: rocketchat
+    name: rocketchat
+  spec:
+    ports:
+    - name: 3000-tcp
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: rocketchat
+      deploymentconfig: rocketchat
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: null
+    labels:
+      app: rocketchat
+    name: rocketchat
+  spec:
+    host: rocketchat-7667-rocket.apps.0845.openshift.opentlc.com
+    port:
+      targetPort: 3000-tcp
+    to:
+      kind: Service
+      name: rocketchat
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: 2018-08-28T06:12:11Z
+        status: "True"
+        type: Admitted
+      host: rocketchat-7667-rocket.apps.0845.openshift.opentlc.com
+      routerName: router
+      wildcardPolicy: None

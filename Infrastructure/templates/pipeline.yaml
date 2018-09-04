@@ -19,11 +19,11 @@ objects:
     source:
       git:
         ref: master
-        uri: https://github.com/SammZhu/advdev_homework/tree/master/MLBParks
+        uri: https://github.com/SammZhu/advdev_homework
       type: Git
     strategy:
       jenkinsPipelineStrategy:
-        jenkinsfilePath: Jenkinsfile
+        jenkinsfilePath: /MLBParks/Jenkinsfile
       type: JenkinsPipeline
     triggers: []
   status:
@@ -42,11 +42,11 @@ objects:
     source:
       git:
         ref: master
-        uri: https://github.com/SammZhu/advdev_homework/tree/master/Nationalparks
+        uri: https://github.com/SammZhu/advdev_homework
       type: Git
     strategy:
       jenkinsPipelineStrategy:
-        jenkinsfilePath: Jenkinsfile
+        jenkinsfilePath: /Nationalparks/Jenkinsfile
       type: JenkinsPipeline
     triggers: []
   status:
@@ -65,11 +65,11 @@ objects:
     source:
       git:
         ref: master
-        uri: https://github.com/SammZhu/advdev_homework/tree/master/ParksMap
+        uri: https://github.com/SammZhu/advdev_homework
       type: Git
     strategy:
       jenkinsPipelineStrategy:
-        jenkinsfilePath: Jenkinsfile
+        jenkinsfilePath: /ParksMap/Jenkinsfile
       type: JenkinsPipeline
     triggers: []
   status:

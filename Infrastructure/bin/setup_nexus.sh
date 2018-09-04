@@ -30,12 +30,13 @@ echo "Setting up Nexus in project $GUID-nexus"
 
 # To be Implemented by Student
 oc policy add-role-to-user admin system:serviceaccount:gpte-jenkins:jenkins -n ${GUID}-nexus
-#oc create -f ./Infrastructure/templates/nexus.yaml -n ${GUID}-nexus
-oc process -f ./Infrastructure/templates/nexus.yaml \
-    -n ${GUID}-nexus \
-    -p GUID=${GUID} \
-    | oc create -f -
-oc rollout latest dc/nexus3
+oc create -f ./Infrastructure/templates/nexus.yaml -n ${GUID}-nexus
+#oc process -f ./Infrastructure/templates/nexus.yaml \
+#    -n ${GUID}-nexus \
+#    -p GUID=${GUID} \
+#    | oc create -f -
+#oc rollout latest dc/nexus3
+oc new-app sz-nexus
 while : ; do
   echo "Checking if Nexus is Ready..."
   oc get pod -n ${GUID}-nexus|grep '\-2\-'|grep -v deploy|grep "1/1"

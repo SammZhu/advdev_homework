@@ -5,6 +5,18 @@ metadata:
   name: sz-nexus
 objects:
 - apiVersion: v1
+  kind: ImageStream
+  metadata:
+    labels:
+      app: nexus3
+    name: nexus3
+  spec:
+    tags:
+    - from:
+        kind: DockerImage
+        name: docker.io/sonatype/nexus3:latest
+      name: latest
+- apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
     name: nexus-pvc
@@ -52,7 +64,7 @@ objects:
           deploymentconfig: nexus3
       spec:
         containers:
-        - image: sonatype/nexus3:latest
+        - image: sonatype/nexus3
           imagePullPolicy: Always
           livenessProbe:
             exec:

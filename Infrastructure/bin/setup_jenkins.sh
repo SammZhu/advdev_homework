@@ -29,6 +29,6 @@ echo "Setting up Jenkins in project ${GUID}-jenkins from Git Repo ${REPO} for Cl
 # To be Implemented by Student
 oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true
 oc new-build --name=jenkins-slave-appdev --dockerfile=$'FROM docker.io/openshift/jenkins-slave-maven-centos7:v3.9\nUSER root\nRUN yum -y install skopeo apb && \nyum clean all\nUSER 1001'
-oc new-app -f ../templates/mlbparks-pipeline.yaml -p GUID=${GUID},CLUSTER=${CLUSTER}
-oc new-app -f ../templates/nationalparks-pipeline.yaml -p GUID=${GUID},CLUSTER=${CLUSTER}
-oc new-app -f ../templates/parksmap-pipeline.yaml -p GUID=${GUID},CLUSTER=${CLUSTER}
+oc new-app -f ../templates/mlbparks-pipeline.yaml
+oc new-app -f ../templates/nationalparks-pipeline.yaml
+oc new-app -f ../templates/parksmap-pipeline.yaml

@@ -39,7 +39,7 @@ oc create -f ./Infrastructure/templates/nexus.yaml -n ${GUID}-nexus
 oc new-app sz-nexus -p GUID=${GUID} -n ${GUID}-nexus
 while : ; do
   echo "Checking if Nexus is Ready..."
-  oc get pod -n ${GUID}-nexus|grep '\-2\-'|grep -v deploy|grep "1/1"
+  oc get pod -n ${GUID}-nexus|grep '\-1\-'|grep -v deploy|grep "1/1"
   [[ "$?" == "1" ]] || break
   echo "...no. Sleeping 10 seconds."
   sleep 10

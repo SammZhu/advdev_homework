@@ -54,20 +54,20 @@ podTemplate(
     // Use Maven call SonarQube for Code Analysis
     stage('Inspect Code Quality') {
       echo "Running Code Analysis"
-      sh "${mvnCmd} -f ./MLBParks/pom.xml sonar:sonar -Dsonar.host.url=http://sonarqube-${GUID}-sonarqube.apps.${CLUSTER} -Dsonar.projectName=${JOB_BASE_NAME}-${devTag}"
+      sh "${mvnCmd} -f ./MLBParks/pom.xml sonar:sonar -Dsonar.host.url=http://sonarqube-${GUID}-sonarqube.svc.cluster.local:9000 -Dsonar.projectName=${JOB_BASE_NAME}-${devTag}"
     } 
 
     // Publish the built war file to Nexus
     stage('Publish Nexus Artifact') {
       echo "Publish to Nexus"
-      sh "${mvnCmd} -f ./MLBParks/pom.xml deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-${GUID}-nexus.apps.${CLUSTER}/repository/releases"
+      sh "${mvnCmd} -f ./MLBParks/pom.xml deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-${GUID}-nexus.svc.cluster.local:8081/repository/releases"
     }
 
     // Build the OpenShift Image in OpenShift
     stage('Build and Tag OpenShift Image') {
     echo "Building OpenShift container image tasks:${devTag}"
     // Start Binary Build in OpenShift using the file we just published
-    sh "oc start-build mlbparks --follow --from-file=http://nexus3-${GUID}-nexus.apps.${CLUSTER}/repository/releases/com/openshift/evg/roadshow/mlbparks/${version}/mlbparks-${version}.war -n ${GUID}-parks-dev"
+    sh "oc start-build mlbparks --follow --from-file=http://nexus3-${GUID}-nexus.svc.cluster.local:8081//repository/releases/com/openshift/evg/roadshow/mlbparks/${version}/mlbparks-${version}.war -n ${GUID}-parks-dev"
 
     // Tag the image using the devTag
     openshiftTag alias: 'false', destStream: 'mlbparks', destTag: devTag, destinationNamespace: "${GUID}-parks-dev", namespace: "${GUID}-parks-dev", srcStream: 'mlbparks', srcTag: 'latest', verbose: 'false'

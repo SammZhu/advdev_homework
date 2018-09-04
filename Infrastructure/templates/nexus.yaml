@@ -218,3 +218,8 @@ objects:
       host: nexus3-${GUID}-nexus.apps.na39.openshift.opentlc.com
       routerName: router
       wildcardPolicy: None
+parameters:  
+- description: GUID
+  from: '[A-Z0-9]{8}'   
+  generate: expression
+  name: GUID

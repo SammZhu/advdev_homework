@@ -36,7 +36,7 @@ oc create -f ./Infrastructure/templates/nexus.yaml -n ${GUID}-nexus
 #    -p GUID=${GUID} \
 #    | oc create -f -
 #oc rollout latest dc/nexus3
-oc new-app sz-nexus
+oc new-app sz-nexus -n ${GUID}-nexus
 while : ; do
   echo "Checking if Nexus is Ready..."
   oc get pod -n ${GUID}-nexus|grep '\-2\-'|grep -v deploy|grep "1/1"

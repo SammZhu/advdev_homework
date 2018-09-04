@@ -11,9 +11,9 @@ objects:
   spec:
     accessModes:
     - ReadWriteOnce
-      resources:
-        requests:
-          storage: 4Gi
+    resources:
+      requests:
+        storage: 4Gi
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:

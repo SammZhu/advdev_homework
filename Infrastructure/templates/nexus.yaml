@@ -8,8 +8,8 @@ objects:
   kind: ImageStream
   metadata:
     labels:
-      app: sonatype/nexus3
-    name: sonatype/nexus3
+      app: nexus3
+    name: nexus3
   spec:
     tags:
     - from:

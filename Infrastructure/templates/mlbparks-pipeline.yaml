@@ -41,7 +41,7 @@ objects:
         from:
           kind: ImageStreamTag
           name: jboss-eap70-openshift:1.7
-          namespace: openshift
+          namespace: ${GUID}-jenkins
         incremental: true
       type: Source
     successfulBuildsHistoryLimit: 5

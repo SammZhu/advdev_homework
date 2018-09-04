@@ -52,7 +52,7 @@ objects:
           deploymentconfig: nexus3
       spec:
         containers:
-        - image: sonatype/nexus3
+        - image: sonatype/nexus3:latest
           imagePullPolicy: Always
           livenessProbe:
             exec:

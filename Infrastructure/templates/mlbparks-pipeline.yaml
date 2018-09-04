@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Template
 metadata:
   creationTimestamp: null
-  name: sz-builds
+  name: mlbparks-builds
 objects:
 - apiVersion: v1
   kind: BuildConfig

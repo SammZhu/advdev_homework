@@ -11,9 +11,9 @@ objects:
       openshift.io/generated-by: OpenShiftNewApp
     creationTimestamp: null
     labels:
-      app: eap70-basic-s2i
+      app: openjdk18-basic-s2i
       application: nationalparks
-      template: eap70-basic-s2i
+      template: openjdk18-basic-s2i
       xpaas: 1.4.14
     name: nationalparks-pipeline
   spec:

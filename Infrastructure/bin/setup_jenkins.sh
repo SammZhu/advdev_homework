@@ -39,7 +39,7 @@ oc set probe dc jenkins --readiness --initial-delay-seconds=1200 --timeoutSecond
 oc rollout resume dc jenkins -n ${GUID}-jenkins
 
 # Setup Jenkins Maven ImageStream
-oc new-build --name=jenkins-slave-appdev --dockerfile=$'FROM docker.io/openshift/jenkins-slave-maven-centos7:v3.9\nUSER root\nRUN yum -y install skopeo apb && \nyum clean all\nUSER 1001'
+oc new-build --name=maven-slave-pod --dockerfile=$'FROM docker.io/openshift/jenkins-slave-maven-centos7:v3.9\nUSER root\nRUN yum -y install skopeo apb && \nyum clean all\nUSER 1001'
 
 # Sleep 30 seconds
 sleep 30
@@ -54,7 +54,7 @@ while : ; do
 done
 
 # Add version 3.9 tag to Jenkins slave ImageStream
-oc tag jenkins-slave-appdev:latest jenkins-slave-appdev:v3.9 -n ${GUID}-jenkins
+oc tag maven-slave-pod:latest maven-slave-pod:v3.9 -n ${GUID}-jenkins
 
 # Create pipeline build configurations
 oc create -f ./Infrastructure/templates/mlbparks-pipeline.yaml -n ${GUID}-jenkins

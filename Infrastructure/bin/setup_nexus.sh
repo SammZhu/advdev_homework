@@ -30,13 +30,13 @@ echo "Setting up Nexus in project $GUID-nexus"
 
 # To be Implemented by Student
 oc policy add-role-to-user admin system:serviceaccount:gpte-jenkins:jenkins -n ${GUID}-nexus
-oc create -f ./Infrastructure/templates/nexus.yaml -n ${GUID}-nexus
-#oc process -f ./Infrastructure/templates/nexus.yaml \
-#    -n ${GUID}-nexus \
-#    -p GUID=${GUID} \
-#    | oc create -f -
-#oc rollout latest dc/nexus3
-oc new-app sz-nexus -p GUID=${GUID} -n ${GUID}-nexus
+#oc create -f ./Infrastructure/templates/nexus.yaml -n ${GUID}-nexus
+oc process -f ./Infrastructure/templates/nexus.yaml \
+    -n ${GUID}-nexus \
+    -p GUID=${GUID} \
+    | oc create -f -
+oc rollout latest dc/nexus3 -n ${GUID}-nexus
+#oc new-app sz-nexus -p GUID=${GUID} -n ${GUID}-nexus
 sleep 30
 while : ; do
   echo "Checking if Nexus is Ready..."

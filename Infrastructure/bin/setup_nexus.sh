@@ -30,7 +30,7 @@ echo "Setting up Nexus in project $GUID-nexus"
 
 # To be Implemented by Student
 
-oc create -f ../templates/nexus.yaml
+oc create -f ../templates/nexus.yaml -n ${GUID}-nexus
 while : ; do
   echo "Checking if Nexus is Ready..."
   oc get pod -n ${GUID}-nexus|grep '\-2\-'|grep -v deploy|grep "1/1"

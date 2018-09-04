@@ -34,7 +34,7 @@ echo "Setting up Nexus in project $GUID-nexus"
 oc process -f ./Infrastructure/templates/nexus.yaml \
     -n ${GUID}-nexus \
     -p GUID=${GUID} \
-    | oc new-app -f -
+    | oc create -f -
 while : ; do
   echo "Checking if Nexus is Ready..."
   oc get pod -n ${GUID}-nexus|grep '\-2\-'|grep -v deploy|grep "1/1"

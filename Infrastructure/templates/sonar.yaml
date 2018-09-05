@@ -229,7 +229,7 @@ objects:
         from:
           kind: ImageStreamTag
           name: sonarqube:6.7.4
-          namespace: $GUID-sonarqube
+          namespace: ${GUID}-sonarqube
       type: ImageChange
   status:
     availableReplicas: 0
@@ -293,7 +293,7 @@ objects:
       app: sonarqube
     name: sonarqube
   spec:
-    host: sonarqube-$GUID-sonarqube.apps.na39.openshift.opentlc.com
+    host: sonarqube-${GUID}-sonarqube.apps.na39.openshift.opentlc.com
     port:
       targetPort: 9000-tcp
     to:
@@ -307,6 +307,11 @@ objects:
       - lastTransitionTime: 2018-08-28T07:20:37Z
         status: "True"
         type: Admitted
-      host: sonarqube-$GUID-sonarqube.apps.na39.openshift.opentlc.com
+      host: sonarqube-${GUID}-sonarqube.apps.na39.openshift.opentlc.com
       routerName: router
       wildcardPolicy: None
+parameters:  
+- description: GUID
+  from: '[A-Z0-9]{8}'   
+  generate: expression
+  name: GUID

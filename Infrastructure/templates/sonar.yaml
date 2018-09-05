@@ -15,6 +15,16 @@ objects:
       requests:
         storage: 4Gi
 - apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: postgresql
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 4Gi
+- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     annotations:

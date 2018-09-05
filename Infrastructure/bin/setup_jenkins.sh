@@ -34,7 +34,7 @@ oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi
 oc rollout pause dc jenkins -n ${GUID}-jenkins
 
 # set probe for Jenkins
-oc set probe dc jenkins --readiness --initial-delay-seconds=1200 --timeoutSeconds=480 -n ${GUID}-jenkins
+oc set probe dc jenkins --readiness --initial-delay-seconds=1200 --timeout-seconds=480 -n ${GUID}-jenkins
 oc patch dc/jenkins -p '{"spec":{"strategy":{"recreateParams":{"timeoutSeconds":1200}}}}'
 
 # Resume rollout 

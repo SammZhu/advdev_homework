@@ -47,3 +47,8 @@ objects:
     successfulBuildsHistoryLimit: 5
   status:
     lastVersion: 0
+parameters:  
+- description: GUID
+  from: '[A-Z0-9]{8}'   
+  generate: expression
+  name: GUID

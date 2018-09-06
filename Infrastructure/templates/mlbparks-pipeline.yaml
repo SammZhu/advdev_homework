@@ -8,8 +8,8 @@ objects:
   kind: ImageStream
   metadata:
     labels:
-      app: jboss-eap70-openshift
-    name: jboss-eap70-openshift
+      app: jbosseap70
+    name: jbosseap70
   spec:
     tags:
     - from:

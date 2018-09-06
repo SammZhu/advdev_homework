@@ -19,7 +19,12 @@ oc policy add-role-to-user edit system:serviceaccount:${GUID}-jenkins:jenkins -n
 
 # Set up a replicated MongoDB database and expose svc
 # oc new-app -f ./Infrastructure/templates/mongodb_services.yaml -n ${GUID}-parks-prod
-oc create -f ./Infrastructure/templates/mongodb_statefulset.yaml -n ${GUID}-parks-prod
+# oc create -f ./Infrastructure/templates/mongodb_statefulset.yaml -n ${GUID}-parks-prod
+
+oc process -f ./Infrastructure/templates/mongodb_statefulset.yaml \
+    -n ${GUID}-parks-prod \
+    | oc create -n ${GUID}-parks-prod -f -
+
 oc expose svc/mongodb-internal -n ${GUID}-parks-prod
 oc expose svc/mongodb -n ${GUID}-parks-prod
 

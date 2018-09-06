@@ -59,19 +59,19 @@ done
 oc tag maven-slave-pod:latest maven-slave-pod:v3.9 -n ${GUID}-jenkins
 
 # Create pipeline build configurations
-# oc create -f ./Infrastructure/templates/mlbparks-pipeline.yaml -n ${GUID}-jenkins
-# oc create -f ./Infrastructure/templates/nationalparks-pipeline.yaml -n ${GUID}-jenkins
-# oc create -f ./Infrastructure/templates/parksmap-pipeline.yaml -n ${GUID}-jenkins
+oc create -f ./Infrastructure/templates/mlbparks-pipeline.yaml -n ${GUID}-jenkins
+oc create -f ./Infrastructure/templates/nationalparks-pipeline.yaml -n ${GUID}-jenkins
+oc create -f ./Infrastructure/templates/parksmap-pipeline.yaml -n ${GUID}-jenkins
 
-oc process -f ./Infrastructure/templates/mlbparks-pipeline.yaml \
-    -n ${GUID}-jenkins \
-    | oc create -n ${GUID}-jenkins -f -
-oc process -f ./Infrastructure/templates/nationalparks-pipeline.yaml \
-    -n ${GUID}-jenkins \
-    | oc create -n ${GUID}-jenkins -f -
-oc process -f ./Infrastructure/templates/parksmap-pipeline.yaml \
-    -n ${GUID}-jenkins \
-    | oc create -n ${GUID}-jenkins -f -
+# oc process -f ./Infrastructure/templates/mlbparks-pipeline.yaml \
+#     -n ${GUID}-jenkins \
+#     | oc create -n ${GUID}-jenkins -f -
+# oc process -f ./Infrastructure/templates/nationalparks-pipeline.yaml \
+#     -n ${GUID}-jenkins \
+#     | oc create -n ${GUID}-jenkins -f -
+# oc process -f ./Infrastructure/templates/parksmap-pipeline.yaml \
+#     -n ${GUID}-jenkins \
+#     | oc create -n ${GUID}-jenkins -f -
 
 # Setting environmental variables in build configs for pipeline
 oc set env bc/mlbparks-pipeline GUID=${GUID} REPO=${REPO} CLUSTER=${CLUSTER} -n ${GUID}-jenkins

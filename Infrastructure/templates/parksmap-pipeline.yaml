@@ -9,4 +9,9 @@ spec:
       ref: "master"
   strategy:
     jenkinsPipelineStrategy:
+       env:
+         - name: GUID
+           value: a7fd
+         - name: CLUSTER
+           value: na39.openshift.opentlc.com
        jenkinsfilePath: ParksMap/Jenkinsfile

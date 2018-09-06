@@ -8,8 +8,8 @@ objects:
   kind: ImageStream
   metadata:
     labels:
-      app: jbosseap70
-    name: jbosseap70
+      app: jbosseap
+    name: jbosseap
   spec:
     tags:
     - from:

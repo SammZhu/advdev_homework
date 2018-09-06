@@ -5,18 +5,6 @@ metadata:
   name: mlbparks-builds
 objects:
 - apiVersion: v1
-  kind: ImageStream
-  metadata:
-    labels:
-      app: jbosseap
-    name: jbosseap
-  spec:
-    tags:
-    - from:
-        kind: DockerImage
-        name: jboss-eap70-openshift:1.7
-      name: 1.7
-- apiVersion: v1
   kind: BuildConfig
   metadata:
     annotations:

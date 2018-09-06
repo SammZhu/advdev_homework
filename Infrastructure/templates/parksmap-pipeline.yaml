@@ -1,54 +1,12 @@
-apiVersion: v1
-kind: Template
+kind: "BuildConfig"
+apiVersion: "v1"
 metadata:
-  creationTimestamp: null
-  name: parksmap-builds
-objects:
-- apiVersion: v1
-  kind: BuildConfig
-  metadata:
-    annotations:
-      openshift.io/generated-by: OpenShiftNewApp
-    creationTimestamp: null
-    labels:
-      app: openjdk18-basic-s2i
-      application: parksmap
-      template: openjdk18-basic-s2i
-      xpaas: 1.4.14
-    name: parksmap-pipeline
-  spec:
-    failedBuildsHistoryLimit: 5
-    nodeSelector: null
-    output:
-      to:
-        kind: ImageStreamTag
-        name: parksmap:latest
-    postCommit: {}
-    resources: {}
-    runPolicy: Serial
-    source:
-      contextDir: /ParksMap
-      git:
-        ref: master
-        uri: https://github.com/SammZhu/advdev_homework.git
-      type: Git
-    strategy:
-      sourceStrategy:
-        env:
-        - name: MAVEN_MIRROR_URL
-          value: http://nexus3-${GUID}-nexus.apps.${CLUSTER}/repository/maven-all-public
-        - name: ARTIFACT_DIR
-        from:
-          kind: ImageStreamTag
-          name: redhat-openjdk18-openshift:1.2
-          namespace: ${GUID}-jenkins
-        incremental: true
-      type: Source
-    successfulBuildsHistoryLimit: 5
-  status:
-    lastVersion: 0
-parameters:  
-- description: GUID
-  from: '[A-Z0-9]{8}'   
-  generate: expression
-  name: GUID
+  name: "parksmap-pipeline"
+spec:
+  source:
+    git:
+      uri: "https://github.com/SammZhu/advdev_homework"
+      ref: "master"
+  strategy:
+    jenkinsPipelineStrategy:
+       jenkinsfilePath: ParksMap/Jenkinsfile

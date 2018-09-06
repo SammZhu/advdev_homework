@@ -41,7 +41,7 @@ oc patch dc/jenkins -p '{"spec":{"strategy":{"recreateParams":{"timeoutSeconds":
 oc rollout resume dc jenkins -n ${GUID}-jenkins
 
 # Setup Jenkins Maven ImageStream
-oc new-build --name=maven-slave-pod --dockerfile=$'FROM docker.io/openshift/jenkins-slave-maven-centos7:v3.9\nUSER root\nRUN yum -y install skopeo apb && \nyum clean all\nUSER 1001' -n ${GUID}-jenkins
+oc new-build --name=maven-slave-pod --dockerfile=$'FROM docker.io/openshift/jenkins-slave-maven-centos7:v3.9\nUSER root\nRUN yum -y install skopeo apb && yum clean all\nUSER 1001' -n ${GUID}-jenkins
 
 # Sleep 30 seconds
 sleep 30

@@ -107,9 +107,9 @@ podTemplate(
     // Waiting for Application
     sleep 30
     // Curl status of application with /wz/health/ URL
-    sh "curl http://mlbparks-${GUID}-parks-dev.svc:8080/ws/healthz/ | grep -q 'OK'"
+    sh "curl http://mlbparks-${GUID}-parks-dev.apps.na39.openshift.opentlc.com/ws/healthz/ | grep -q 'OK'"
     // Curl endpoint to load data from application into backend database
-    sh "curl http://mlbparks-${GUID}-parks-dev.svc:8080/ws/data/load/ | grep -q 'Items inserted in database: 30'"
+    sh "curl http://mlbparks-${GUID}-parks-dev.apps.na39.openshift.opentlc.com/ws/data/load/ | grep -q 'Items inserted in database: 30'"
     }
 
     // Copy Image to Nexus Docker Registry

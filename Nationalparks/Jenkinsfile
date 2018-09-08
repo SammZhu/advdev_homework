@@ -97,7 +97,8 @@ podTemplate(
     // Deploy the development application
     openshiftDeploy depCfg: 'nationalparks', namespace: "${GUID}-parks-dev", verbose: 'false', waitTime: '', waitUnit: 'sec'
     openshiftVerifyDeployment depCfg: 'nationalparks', namespace: "${GUID}-parks-dev", replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: '', waitUnit: 'sec'
-    openshiftVerifyService namespace: "${GUID}-parks-dev', svcName: 'nationalparks', verbose: 'false'}
+    openshiftVerifyService namespace: "${GUID}-parks-dev", svcName: 'nationalparks', verbose: 'false'
+    }
 
     // Run Integration Tests in the Development Environment
     stage('Run Integration Tests') {

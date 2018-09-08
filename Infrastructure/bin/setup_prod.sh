@@ -16,6 +16,9 @@ echo "Setting up Parks Production Environment in project ${GUID}-parks-prod"
 # Grant the correct permissions to the Jenkins service account
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${GUID}-parks-prod -n ${GUID}-parks-dev
 oc policy add-role-to-user edit system:serviceaccount:${GUID}-jenkins:jenkins -n ${GUID}-parks-prod
+oc policy add-role-to-user view --serviceaccount=default -n ${GUID}-parks-prod
+oc policy add-role-to-user edit system:serviceaccount:gpte-jenkins:jenkins -n ${GUID}-parks-prod
+oc policy add-role-to-user admin system:serviceaccount:gpte-jenkins:jenkins -n ${GUID}-parks-prod
 
 # Set up a replicated MongoDB database and expose svc
 # oc new-app -f ./Infrastructure/templates/mongodb_services.yaml -n ${GUID}-parks-prod

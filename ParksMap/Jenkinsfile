@@ -101,7 +101,7 @@ podTemplate(
 
     // 
     echo "Testing health endpoint"
-    sh "curl http://parksmap-${GUID}-parks-dev.svc:8080/ws/healthz/ | grep -q 'OK'"
+    sh "curl http://parksmap-${GUID}-parks-dev.apps.${CLUSTER}/ws/healthz/ | grep -q 'OK'"
     }
 
     // Copy Image to Nexus Docker Registry
